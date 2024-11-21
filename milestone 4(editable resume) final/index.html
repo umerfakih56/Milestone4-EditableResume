@@ -3,49 +3,95 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Milestone4 Editable Resume Builder</title>
+    <title>Editable Resume Builder by Umer Fakih</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Editable Resume Builder by Umer Hussain</h1>
-    <form id="resumeForm">
-        <fieldset>
-            <legend>Personal Information</legend>
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name" required><br>
+    <header>
+        <h1>Editable Resume Builder</h1>
+        <p style="text-align: center; font-size: 1.2rem; color: #34495e;">
+            Create your personalized, professional resume quickly and easily.
+        </p>
+    </header>
 
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required><br>
+    <main>
+        <form id="resumeForm">
+            <fieldset>
+                <legend>Personal Information</legend>
+                <label for="name">Full Name:</label>
+                <input type="text" id="name" name="name" placeholder="Enter your full name" required>
 
-            <label for="phone">Phone: </label>
-            <input type="tel" id="phone" name="phone" required><br>
-        </fieldset>
+                <label for="email">Email Address:</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email address" required>
 
-        <fieldset>
-            <legend>Education</legend>
-            <label for="education">Education:</label>
-            <textarea id="education" name="education" rows="4" required></textarea><br>
-        </fieldset>
+                <label for="phone">Phone Number:</label>
+                <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required>
+            </fieldset>
 
-        <fieldset>
-            <legend>Experience</legend>
-            <label for="experience">Experience:</label>
-            <textarea id="experience" name="experience" rows="4" required></textarea><br>
-        </fieldset>
+            <fieldset>
+                <legend>Education</legend>
+                <label for="education">Education Details:</label>
+                <textarea id="education" name="education" rows="4" placeholder="Enter your education details" required></textarea>
+            </fieldset>
 
-        <fieldset>
-            <legend>Skills</legend>
-            <label for="skills">Skills:</label>
-            <textarea id="skills" name="skills" rows="4" required></textarea><br>
-        </fieldset>
+            <fieldset>
+                <legend>Experience</legend>
+                <label for="experience">Work Experience:</label>
+                <textarea id="experience" name="experience" rows="4" placeholder="Describe your professional experience" required></textarea>
+            </fieldset>
 
-        <button type="submit">Generate Resume Below</button>
-    </form>
-    
-    <div id="resumeOutput">
-        <!-- Resume will be generated below -->
-    </div>
+            <fieldset>
+                <legend>Skills</legend>
+                <label for="skills">Key Skills:</label>
+                <textarea id="skills" name="skills" rows="4" placeholder="List your skills, separated by commas" required></textarea>
+            </fieldset>
 
-    <script src="script.js"></script>
+            <button type="submit">Generate Resume</button>
+        </form>
+
+        <section id="resumeOutput" style="display: none;">
+            <h2>Generated Resume</h2>
+            <div id="resumeDetails"></div>
+        </section>
+    </main>
+
+    <footer style="margin-top: 20px; text-align: center; color: #7f8c8d; font-size: 0.9rem;">
+        <p>&copy; 2024 Editable Resume Builder by Umer Fakih. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.getElementById('resumeForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            // Fetch values from the form
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const education = document.getElementById('education').value;
+            const experience = document.getElementById('experience').value;
+            const skills = document.getElementById('skills').value;
+
+            // Generate Resume HTML
+            const resumeHtml = `
+                <h3>${name}</h3>
+                <p><strong>Email:</strong> ${email}</p>
+                <p><strong>Phone:</strong> ${phone}</p>
+                <hr>
+                <h4>Education</h4>
+                <p>${education.replace(/\n/g, '<br>')}</p>
+                <hr>
+                <h4>Experience</h4>
+                <p>${experience.replace(/\n/g, '<br>')}</p>
+                <hr>
+                <h4>Skills</h4>
+                <p>${skills}</p>
+            `;
+
+            // Display the resume
+            const resumeOutput = document.getElementById('resumeOutput');
+            document.getElementById('resumeDetails').innerHTML = resumeHtml;
+            resumeOutput.style.display = 'block';
+        });
+    </script>
 </body>
 </html>
